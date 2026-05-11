@@ -147,7 +147,7 @@ nav a:focus-visible {
   position: relative;
   width: min(100%, var(--max));
   margin: 0 auto;
-  padding: clamp(4rem, 8vw, 7.5rem) clamp(1rem, 3vw, 2.4rem);
+  padding: clamp(3.25rem, 6.5vw, 6rem) clamp(1rem, 3vw, 2.4rem);
 }
 
 .hero {
@@ -191,7 +191,7 @@ nav a:focus-visible {
 .kicker {
   margin: 0 0 1rem;
   color: var(--green);
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-size: clamp(0.95rem, 1.25vw, 1.12rem);
   font-weight: 800;
 }
 
@@ -205,7 +205,7 @@ p {
 .hero h1 {
   margin: 0;
   color: var(--purple);
-  font-size: clamp(3.4rem, 7vw, 7.2rem);
+  font-size: clamp(3rem, 5.8vw, 6.1rem);
   line-height: 0.9;
   font-weight: 900;
 }
@@ -214,7 +214,7 @@ p {
   max-width: 980px;
   margin: 0.55rem 0 0;
   color: var(--purple);
-  font-size: clamp(1.8rem, 3.8vw, 4rem);
+  font-size: clamp(1.55rem, 3.1vw, 3.35rem);
   line-height: 0.96;
   font-weight: 900;
 }
@@ -266,14 +266,14 @@ p {
 .spline-art {
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  min-height: clamp(560px, 68vw, 900px);
+  min-height: clamp(500px, 58vw, 760px);
   overflow: hidden;
 }
 
 .spline-art spline-viewer {
   display: block;
   width: 100%;
-  height: clamp(560px, 68vw, 900px);
+  height: clamp(500px, 58vw, 760px);
 }
 
 .audience {
@@ -283,7 +283,7 @@ p {
 .audience h2,
 .section-heading h2 {
   margin: 0;
-  font-size: clamp(2.9rem, 5.5vw, 5.5rem);
+  font-size: clamp(2.35rem, 4.4vw, 4.6rem);
   line-height: 0.96;
   font-weight: 500;
 }
@@ -296,8 +296,8 @@ p {
 }
 
 .focus-card {
-  min-height: 18rem;
-  padding: 3.8rem clamp(1.2rem, 2.2vw, 2rem) 2rem;
+  min-height: 16rem;
+  padding: 3.25rem clamp(1rem, 1.9vw, 1.7rem) 1.7rem;
   border: 2px solid var(--ink);
   border-radius: 1.35rem;
 }
@@ -311,24 +311,24 @@ p {
 }
 
 .focus-card h3 {
-  margin: 0 auto 1.4rem;
+  margin: 0 auto 1.1rem;
   max-width: 18ch;
-  font-size: clamp(1.55rem, 2.3vw, 2.2rem);
+  font-size: clamp(1.28rem, 1.85vw, 1.8rem);
   line-height: 1.04;
 }
 
 .focus-card p {
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-size: clamp(0.98rem, 1.22vw, 1.14rem);
 }
 
 .icon-stack,
 .icon-person,
 .icon-screen {
-  width: 4rem;
-  height: 4rem;
-  margin: -5.8rem auto 1.2rem;
+  width: 3.35rem;
+  height: 3.35rem;
+  margin: -5rem auto 1.05rem;
   border: 4px solid var(--ink);
   border-radius: 0.8rem;
   background: var(--white);
@@ -379,12 +379,12 @@ p {
 }
 
 .project-card {
-  min-height: 25rem;
+  min-height: 22rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1.4rem;
-  padding: clamp(1.3rem, 2.4vw, 2.2rem);
+  padding: clamp(1.15rem, 2vw, 1.8rem);
   border: 2px solid var(--ink);
   border-radius: 1.35rem;
   background: var(--panel);
@@ -410,7 +410,7 @@ p {
 .project-card h3,
 .timeline-item h3 {
   margin: 0;
-  font-size: clamp(1.9rem, 3.1vw, 3.1rem);
+  font-size: clamp(1.5rem, 2.45vw, 2.45rem);
   line-height: 0.98;
   font-weight: 700;
 }
@@ -419,7 +419,7 @@ p {
 .timeline-item p:not(.org) {
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1.08rem, 1.45vw, 1.35rem);
+  font-size: clamp(0.98rem, 1.18vw, 1.12rem);
 }
 
 .watch-button {
@@ -428,8 +428,8 @@ p {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 3.6rem;
-  padding: 0.7rem 1.25rem;
+  min-height: 3.15rem;
+  padding: 0.58rem 1.05rem;
   border: 2px solid var(--ink);
   border-radius: 999px;
   box-shadow: 0 5px 0 var(--ink);
@@ -437,7 +437,7 @@ p {
   color: var(--ink);
   cursor: pointer;
   font: inherit;
-  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.04rem);
   font-weight: 800;
 }
 
@@ -530,7 +530,7 @@ p {
 .timeline-item {
   position: relative;
   display: grid;
-  grid-template-columns: 5rem minmax(0, 1fr);
+  grid-template-columns: 4.4rem minmax(0, 1fr);
   gap: 1rem;
   padding: clamp(1.25rem, 2.2vw, 2rem);
   border: 2px solid var(--ink);
@@ -550,12 +550,12 @@ p {
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 3.45rem;
+  height: 3.45rem;
   border: 2px solid var(--ink);
   border-radius: 999px;
   background: var(--lime);
-  font-size: 1.35rem;
+  font-size: 1.12rem;
   font-weight: 900;
 }
 
@@ -624,7 +624,7 @@ footer p a {
   }
 
   .spline-art spline-viewer {
-    height: 520px;
+    height: 480px;
   }
 }
 
@@ -645,19 +645,19 @@ footer p a {
   }
 
   .hero h1 {
-    font-size: clamp(3rem, 15vw, 5.2rem);
+    font-size: clamp(2.65rem, 13vw, 4.6rem);
   }
 
   .hero h2 {
-    font-size: clamp(1.55rem, 8vw, 2.75rem);
+    font-size: clamp(1.35rem, 6.6vw, 2.35rem);
   }
 
   .hero-art {
-    min-height: 420px;
+    min-height: 380px;
   }
 
   .spline-art spline-viewer {
-    height: 420px;
+    height: 380px;
   }
 
   .video-modal {
