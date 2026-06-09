@@ -13,6 +13,7 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
+    <canvas id="dotCanvas" class="dot-canvas" aria-hidden="true"></canvas>
 
     <header class="site-header">
       <a class="brand" href="#home" aria-label="Jonathan Delgado home">
@@ -30,8 +31,6 @@
 
     <main id="main">
       <section id="home" class="hero section">
-        <div class="dot-field dot-left" aria-hidden="true"></div>
-        <div class="dot-field dot-right" aria-hidden="true"></div>
         <div class="hero-copy">
           <p class="kicker">Innovation Leadership &middot; Emerging Technology &middot; Learning Ecosystems</p>
           <h1>Jonathan Delgado</h1>
@@ -421,6 +420,11 @@
       const videoTitle = document.querySelector("#video-title");
       const openButtons = document.querySelectorAll("[data-video-open]");
       const closeButton = document.querySelector("[data-video-close]");
+      const dotCanvas = document.querySelector("#dotCanvas");
+      const dotContext = dotCanvas.getContext("2d");
+      const mouse = { x: -9999, y: -9999, active: false };
+      let dotParticles = [];
+      let dotFrame = null;
 
       function closeVideo() {
         modal.close();
@@ -447,6 +451,102 @@
       modal.addEventListener("cancel", () => {
         iframe.src = "";
       });
+
+      function buildDotParticles() {
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        const pageHeight = Math.max(
+          document.documentElement.scrollHeight,
+          document.body.scrollHeight,
+          window.innerHeight
+        );
+        dotCanvas.width = Math.round(window.innerWidth * pixelRatio);
+        dotCanvas.height = Math.round(pageHeight * pixelRatio);
+        dotCanvas.style.height = `${pageHeight}px`;
+        dotContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+        dotParticles = [];
+        const sideWidth = Math.min(190, window.innerWidth * 0.12);
+        const gap = window.innerWidth < 720 ? 14 : 17;
+        const startY = window.innerWidth < 720 ? 130 : 170;
+        const edgeInset = window.innerWidth < 720 ? 8 : 14;
+
+        for (let y = startY; y < pageHeight - 40; y += gap) {
+          for (let x = edgeInset; x < sideWidth; x += gap) {
+            const leftFade = 1 - x / sideWidth;
+            const rightX = window.innerWidth - x;
+            const jitter = ((x * 13 + y * 7) % 5) - 2;
+
+            dotParticles.push({
+              x: x + jitter,
+              y,
+              baseX: x + jitter,
+              baseY: y,
+              alpha: Math.max(0, leftFade * 0.42),
+              radius: 1.45
+            });
+
+            dotParticles.push({
+              x: rightX - jitter,
+              y,
+              baseX: rightX - jitter,
+              baseY: y,
+              alpha: Math.max(0, leftFade * 0.34),
+              radius: 1.45
+            });
+          }
+        }
+      }
+
+      function drawDotParticles() {
+        dotContext.clearRect(0, 0, dotCanvas.width, dotCanvas.height);
+        const scrollY = window.scrollY || 0;
+        const influence = window.innerWidth < 720 ? 92 : 130;
+
+        dotParticles.forEach((dot) => {
+          const screenY = dot.y - scrollY;
+          const dx = dot.x - mouse.x;
+          const dy = screenY - mouse.y;
+          const distance = Math.hypot(dx, dy);
+
+          if (mouse.active && distance < influence) {
+            const force = (1 - distance / influence) * 18;
+            const angle = Math.atan2(dy, dx);
+            dot.x += Math.cos(angle) * force * 0.12;
+            dot.y += Math.sin(angle) * force * 0.12;
+          }
+
+          dot.x += (dot.baseX - dot.x) * 0.07;
+          dot.y += (dot.baseY - dot.y) * 0.07;
+
+          const pulse = mouse.active && distance < influence ? (1 - distance / influence) * 0.42 : 0;
+          dotContext.beginPath();
+          dotContext.fillStyle = `rgba(199, 131, 242, ${Math.min(0.68, dot.alpha + pulse)})`;
+          dotContext.arc(dot.x, dot.y, dot.radius + pulse * 1.4, 0, Math.PI * 2);
+          dotContext.fill();
+        });
+
+        dotFrame = requestAnimationFrame(drawDotParticles);
+      }
+
+      function resizeDotParticles() {
+        cancelAnimationFrame(dotFrame);
+        buildDotParticles();
+        drawDotParticles();
+      }
+
+      window.addEventListener("pointermove", (event) => {
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+        mouse.active = true;
+      });
+
+      window.addEventListener("pointerleave", () => {
+        mouse.active = false;
+      });
+
+      window.addEventListener("resize", resizeDotParticles);
+      window.addEventListener("load", resizeDotParticles);
+      resizeDotParticles();
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>

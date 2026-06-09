@@ -23,6 +23,8 @@ html {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   overflow-x: hidden;
   color: var(--ink);
@@ -63,6 +65,21 @@ a {
   padding: 2rem clamp(1rem, 4vw, 4rem);
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
+}
+
+.dot-canvas {
+  position: absolute;
+  inset: 0 auto auto 0;
+  z-index: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.site-header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 .brand {
@@ -165,27 +182,6 @@ nav a:focus-visible {
   width: min(100% - 2rem, var(--max));
   margin: 0 auto;
   padding-inline: clamp(0rem, 2vw, 1rem);
-}
-
-.dot-field {
-  position: absolute;
-  z-index: -1;
-  width: min(22rem, 34vw);
-  height: min(34rem, 58vw);
-  opacity: 0.72;
-  background-image: radial-gradient(var(--lavender) 1.6px, transparent 1.8px);
-  background-size: 9px 9px;
-  mask-image: radial-gradient(circle at center, #000 0 44%, transparent 74%);
-}
-
-.dot-left {
-  left: -8rem;
-  top: -2rem;
-}
-
-.dot-right {
-  right: -7rem;
-  top: 5rem;
 }
 
 .kicker {
