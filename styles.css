@@ -435,6 +435,7 @@ p {
   font: inherit;
   font-size: clamp(0.95rem, 1.05vw, 1.04rem);
   font-weight: 800;
+  text-decoration: none;
 }
 
 .watch-button:hover,
