@@ -9,7 +9,8 @@
       content="Portfolio for Jonathan David Delgado, strategic innovation leader in EdTech, immersive learning, AI, makerspaces, VR, and game-based learning."
     >
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
+    <link rel="preload" as="image" href="assets/jonathan-profile.png">
+    <script defer src="profile-splash.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -20,7 +21,10 @@
         <span class="logo-mark" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </span>
-        <span>Jonathan Delgado</span>
+        <span class="brand-copy">
+          <span>Jonathan Delgado</span>
+          <span class="brand-tagline">Innovation Leadership &middot; Emerging Technology &middot; Learning Ecosystems</span>
+        </span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="#home">Home</a>
@@ -32,14 +36,43 @@
     <main id="main">
       <section id="home" class="hero section">
         <div class="hero-copy">
-          <p class="kicker">Innovation Leadership &middot; Emerging Technology &middot; Learning Ecosystems</p>
-          <h1>Jonathan Delgado</h1>
-          <h2>Strategic Innovation Leader in EdTech + Immersive Learning</h2>
+          <h1>Leading AI Transformation &amp; Future-Ready Learning</h1>
+          <p>I’m an educational technology leader and innovation strategist helping schools turn emerging technologies into meaningful, scalable learning experiences.</p>
+          <p>I lead AI transformation, innovation labs, future-ready curriculum pathways, and faculty capacity-building across AI, immersive learning, robotics, automation, and creative technologies—moving ideas from experimentation into sustainable practice.</p>
         </div>
 
-        <div class="hero-art spline-art" aria-label="Interactive 3D portfolio scene">
-          <spline-viewer url="https://prod.spline.design/B6jCtQzCJURLRvud/scene.splinecode"></spline-viewer>
-        </div>
+        <profile-splash class="hero-art" aria-label="Portrait of Jonathan Delgado">
+          <div class="portrait-accents" aria-hidden="true">
+            <span class="liquid-blob liquid-blob-one"></span>
+            <span class="liquid-blob liquid-blob-two"></span>
+            <span class="liquid-blob liquid-blob-three"></span>
+            <span class="liquid-blob liquid-blob-four"></span>
+          </div>
+          <svg class="portrait-image" viewBox="0 0 600 600" role="img" aria-labelledby="portrait-title">
+            <title id="portrait-title">Jonathan Delgado in a dark blazer and light shirt</title>
+            <defs>
+              <linearGradient id="portrait-base-fade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0.86" stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+              </linearGradient>
+              <mask id="portrait-edge-mask" style="mask-type: alpha">
+                <rect width="600" height="600" fill="url(#portrait-base-fade)"/>
+              </mask>
+              <mask id="portrait-splash-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="600" style="mask-type: alpha">
+                <g fill="white">
+                  <circle class="splash s1" cx="300" cy="300" r="440"/>
+                  <circle class="splash s2" cx="330" cy="288" r="405"/>
+                  <circle class="splash s3" cx="270" cy="330" r="415"/>
+                  <circle class="splash s4" cx="360" cy="312" r="400"/>
+                  <circle class="splash s5" cx="255" cy="265" r="330"/>
+                </g>
+              </mask>
+            </defs>
+            <g mask="url(#portrait-edge-mask)">
+              <image href="assets/jonathan-profile.png" width="600" height="600" preserveAspectRatio="xMidYMid meet" mask="url(#portrait-splash-mask)"/>
+            </g>
+          </svg>
+        </profile-splash>
       </section>
 
       <section class="audience section" aria-labelledby="focus-title">
