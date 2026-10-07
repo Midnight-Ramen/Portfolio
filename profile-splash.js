@@ -6,7 +6,8 @@ class ProfileSplash extends HTMLElement {
     const { signal } = this.events;
     this.motion = matchMedia("(prefers-reduced-motion: reduce)");
     this.pointer = matchMedia("(hover: hover) and (pointer: fine)");
-    this.photo = this.querySelector("image");
+    this.photo = this.querySelector(".portrait-splash-layer");
+    this.setupColorReveal(signal);
 
     if (!this.initialized) {
       this.initialized = true;
@@ -48,7 +49,7 @@ class ProfileSplash extends HTMLElement {
         if (this.isConnected && this.state === "pending") this.observer.observe(this);
       };
       this.loader.onerror = () => this.finishReveal();
-      this.loader.src = this.photo.getAttribute("href");
+      this.loader.src = this.querySelector(".profile-bw").src;
     }
 
     this.addEventListener("pointerenter", () => {
@@ -91,7 +92,51 @@ class ProfileSplash extends HTMLElement {
     this.state = "revealing";
     this.classList.replace("is-pending", "is-revealing");
     // Also finish if an animationend event is lost (e.g. background tab throttling).
-    this.revealTimer = setTimeout(() => this.finishReveal(), 1100);
+    this.revealTimer = setTimeout(() => this.finishReveal(), 2800);
+  }
+
+  setupColorReveal(signal) {
+    const surface = this.querySelector(".profile-reveal");
+    let targetX = 300, targetY = 300, x = 300, y = 300;
+    const frame = () => {
+      this.colorFrame = null;
+      x += (targetX - x) * .2;
+      y += (targetY - y) * .2;
+      surface.style.setProperty("--x", `${x.toFixed(2)}px`);
+      surface.style.setProperty("--y", `${y.toFixed(2)}px`);
+      if (Math.abs(targetX - x) + Math.abs(targetY - y) > .2) {
+        this.colorFrame = requestAnimationFrame(frame);
+      }
+    };
+    const update = (event, entering = false) => {
+      if (!this.pointer.matches || this.motion.matches || event.pointerType === "touch") return;
+      const rect = surface.getBoundingClientRect();
+      // The foreignObject uses SVG coordinates; keep the brush ~150 screen pixels.
+      const ratio = surface.clientWidth / rect.width;
+      targetX = (event.clientX - rect.left) * ratio;
+      targetY = (event.clientY - rect.top) * ratio;
+      surface.style.setProperty("--reveal-size", `${Math.min(160, rect.width * .34) * ratio}px`);
+      if (entering) {
+        x = targetX; y = targetY;
+        surface.style.setProperty("--x", `${x}px`);
+        surface.style.setProperty("--y", `${y}px`);
+      }
+      surface.classList.add("is-color-revealing");
+      if (!this.colorFrame) this.colorFrame = requestAnimationFrame(frame);
+    };
+    const leave = () => {
+      surface.classList.remove("is-color-revealing");
+      cancelAnimationFrame(this.colorFrame);
+      this.colorFrame = null;
+    };
+    surface.addEventListener("pointerenter", event => update(event, true), { signal });
+    surface.addEventListener("pointermove", event => update(event), { signal, passive: true });
+    surface.addEventListener("pointerleave", leave, { signal });
+    surface.addEventListener("pointercancel", leave, { signal });
+    window.addEventListener("blur", leave, { signal });
+    this.motion.addEventListener("change", leave, { signal });
+    this.pointer.addEventListener("change", leave, { signal });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) leave(); }, { signal });
   }
 
   finishReveal() {
@@ -144,6 +189,8 @@ class ProfileSplash extends HTMLElement {
   }
 
   disconnectedCallback() {
+    cancelAnimationFrame(this.colorFrame);
+    this.colorFrame = null;
     this.finishReveal();
     this.resetLayers();
     this.events?.abort();

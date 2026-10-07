@@ -1,98 +1,213 @@
-/* Project-only disclosure grid; existing portfolio styles remain unchanged. */
+/* Fixed project gallery and its shared, animated detail surface. */
 #work .project-list {
-  --project-columns: 3;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(.85rem, 1.5vw, 1.25rem);
-  transition: grid-template-columns 400ms cubic-bezier(.22,1,.36,1),
-    grid-template-rows 400ms cubic-bezier(.22,1,.36,1);
-  overflow-anchor: none;
 }
-
-#work .project-list[data-column="0"] { grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); }
-#work .project-list[data-column="1"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr) minmax(0, 1fr); }
-#work .project-list[data-column="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2.2fr); }
-#work .project-list[data-row="0"] { grid-template-rows: minmax(min-content, 2fr) minmax(min-content, 1fr); }
-#work .project-list[data-row="1"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 2fr); }
-
+#work [data-theme] {
+  --card-accent: var(--purple);
+  --card-accent-light: var(--lavender-soft);
+  --card-ink: var(--purple);
+  --hover-text: var(--white);
+  --shadow-color: var(--lavender);
+}
+#work [data-theme="green"] {
+  --card-accent: var(--green);
+  --card-accent-light: var(--lime-soft);
+  --card-ink: var(--green);
+  --shadow-color: var(--green);
+}
+#work [data-theme="lime"] {
+  --card-accent: var(--lime);
+  --card-accent-light: var(--lime-soft);
+  --card-ink: var(--green);
+  --hover-text: var(--green);
+  --shadow-color: var(--lime);
+}
+#work [data-theme="lavender"] {
+  --card-accent: var(--lavender);
+  --card-ink: var(--purple);
+  --hover-text: var(--ink);
+}
 #work .project-card {
-  min-width: 0;
-  padding: clamp(1rem, 1.5vw, 1.25rem);
-  gap: .7rem;
-  justify-content: flex-start;
-}
-
-#work .project-lavender { background: var(--lavender-soft); }
-#work .project-lime { background: var(--lime-soft); }
-#work .project-panel { background: var(--panel); }
-#work .project-type { font-size: clamp(.72rem, .85vw, .8rem); line-height: 1.35; }
-#work .project-card h3 { font-size: clamp(1.15rem, 1.5vw, 1.4rem); line-height: 1.15; }
-#work .project-card p:not(.project-type),
-#work .project-card li { font-size: 1rem; line-height: 1.45; }
-
-#work .project-toggle {
-  position: relative;
   display: block;
-  width: 100%;
-  padding: 0 1.5rem 0 0;
+  min-width: 0;
+  padding: 0;
   border: 0;
   background: transparent;
-  color: inherit;
+}
+#work .project-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  min-height: clamp(240px, 19vw, 270px);
+  padding: 1.6rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.35rem;
+  background: var(--white);
+  color: var(--ink);
   font: inherit;
-  text-align: left;
+  cursor: pointer;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: transform 350ms cubic-bezier(.25,.45,.45,.95), box-shadow 700ms ease, color 850ms ease;
+}
+#work .project-circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: clamp(120px, 10vw, 135px);
+  height: clamp(120px, 10vw, 135px);
+  border: 2px solid var(--card-accent);
+  border-radius: 50%;
+  background: var(--card-accent-light);
+  box-shadow: inset 0 0 0 6px var(--white);
+  color: var(--card-ink);
+  transition: border-color 850ms ease, box-shadow 850ms ease;
+}
+#work .project-circle svg { width: 72px; height: 72px; }
+#work .project-overlay {
+  position: absolute;
+  z-index: -1;
+  top: calc(50% - 25px);
+  left: 50%;
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  transform: translate(-50%, -50%) scale(.7);
+  transition: transform 950ms cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+#work .project-tile-title {
+  position: relative;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+#work .project-tile:is(:hover, :focus-visible) {
+  transform: translate3d(0, -5px, 0) scale(1.005);
+  box-shadow: 0 14px 28px -16px var(--shadow-color);
+  color: var(--hover-text);
+}
+#work .project-tile:is(:hover, :focus-visible) .project-overlay {
+  transform: translate(-50%, -50%) scale(5.5);
+}
+#work .project-tile:is(:hover, :focus-visible) .project-circle {
+  border-color: var(--card-accent-light);
+  box-shadow: inset 0 0 0 6px var(--card-accent);
+}
+#work .project-tile:focus-visible,
+#work .project-close:focus-visible { outline: 3px solid var(--purple); outline-offset: 4px; }
+
+#work .project-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(1160px, calc(100vw - 48px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  margin: auto;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 1.35rem;
+  background: var(--card-accent-light);
+  color: var(--ink);
+  transform-origin: top left;
+  box-shadow: 0 20px 60px rgb(5 5 5 / .16);
+}
+#work .project-dialog::backdrop {
+  background: rgb(5 5 5 / .18);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+#work .project-dialog-scroll {
+  max-height: calc(100dvh - 36px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+#work .project-dialog-tools {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: .65rem .85rem 0;
+  background: var(--card-accent-light);
+}
+#work .project-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
   cursor: pointer;
 }
-
-#work .project-toggle:focus-visible { outline: 2px solid var(--purple); outline-offset: 5px; border-radius: .2rem; }
-#work .project-indicator { position: absolute; top: 0; right: 0; font-weight: 500; color: var(--green); }
-#work .project-summary { max-width: 60ch; }
-#work .project-details { display: grid; grid-template-rows: 1fr; opacity: 1; }
-#work .project-details-inner { min-height: 0; display: flex; flex-direction: column; gap: .8rem; }
-#work .project-details-inner ul { padding-left: 1.2rem; margin-bottom: 0; }
-#work .project-details-inner li + li { margin-top: .6rem; }
-#work .project-actions { display: flex; flex-wrap: wrap; gap: .65rem; padding-bottom: .35rem; }
+#work .project-dialog-content { padding: 0 clamp(1.2rem, 2.4vw, 2rem) 1.75rem; }
+#work .project-dialog .project-circle {
+  width: 56px;
+  height: 56px;
+  margin: 0 0 .65rem;
+}
+#work .project-dialog .project-circle svg { width: 38px; height: 38px; }
+#work .project-full[hidden] { display: none; }
+#work .project-type {
+  margin: 0 0 .65rem;
+  color: var(--green);
+  font-size: .78rem;
+  line-height: 1.4;
+}
+#work .project-full h3 {
+  margin: 0 0 1.15rem;
+  max-width: 35ch;
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  line-height: 1.12;
+}
+#work .project-details-inner { display: flex; flex-direction: column; gap: .8rem; }
+#work .project-details-inner p,
+#work .project-details-inner li { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.5; }
+#work .project-details-inner ul { margin: 0; padding-left: 1.2rem; }
+#work .project-details-inner li + li { margin-top: .65rem; }
+#work .project-actions { display: flex; flex-wrap: wrap; gap: .75rem; padding: .4rem 0 .35rem; }
 #work .project-actions .watch-button { width: auto; margin-top: 0; font-size: .9rem; }
-
-#work .projects-ready .project-details {
-  grid-template-rows: 0fr;
-  opacity: 0;
-  visibility: hidden;
-  transition: grid-template-rows 400ms cubic-bezier(.22,1,.36,1),
-    opacity 300ms ease, visibility 0s 400ms;
+@media (min-width: 900px) {
+  #work .project-details-inner {
+    display: block;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  #work .project-details-inner > p,
+  #work .project-details-inner li { break-inside: avoid; }
+  #work .project-details-inner > p,
+  #work .project-details-inner > ul { margin-bottom: .8rem; }
+  #work .project-actions { column-span: all; margin-top: .35rem; }
+  #work .project-full h3 { max-width: none; }
 }
-#work .projects-ready .project-details-inner { overflow: hidden; }
-#work .projects-ready .is-expanded .project-details {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
-}
-
 @media (min-width: 721px) and (max-width: 1100px) {
-  #work .project-list {
-    --project-columns: 2;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr);
-  }
-  #work .project-list[data-column="0"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
-  #work .project-list[data-column="1"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
-  #work .project-list[data-row="0"] { grid-template-rows: minmax(min-content, 2fr) minmax(min-content, 1fr) minmax(min-content, 1fr); }
-  #work .project-list[data-row="1"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 2fr) minmax(min-content, 1fr); }
-  #work .project-list[data-row="2"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 2fr); }
+  #work .project-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-
 @media (max-width: 720px) {
-  #work .project-list,
-  #work .project-list[data-column] {
-    --project-columns: 1;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-    grid-auto-rows: auto;
-  }
+  #work .project-list { grid-template-columns: minmax(0, 1fr); }
+  #work .project-dialog { width: calc(100vw - 32px); max-height: calc(100dvh - 32px); }
+  #work .project-dialog-scroll { max-height: calc(100dvh - 36px); }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  #work .project-list,
-  #work .projects-ready .project-details { transition: none; }
+  #work .project-tile,
+  #work .project-overlay,
+  #work .project-circle { transition: none; }
+  #work .project-tile:is(:hover, :focus-visible) { transform: none; }
 }

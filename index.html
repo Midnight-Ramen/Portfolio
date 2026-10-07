@@ -50,7 +50,7 @@
             <span class="liquid-blob liquid-blob-three"></span>
             <span class="liquid-blob liquid-blob-four"></span>
           </div>
-          <svg class="portrait-image" viewBox="0 0 600 600" role="img" aria-labelledby="portrait-title">
+          <svg class="portrait-image" viewBox="0 0 600 600" role="img" aria-labelledby="portrait-title" tabindex="0">
             <title id="portrait-title">Jonathan Delgado in a dark blazer and light shirt</title>
             <defs>
               <linearGradient id="portrait-base-fade" x1="0" y1="0" x2="0" y2="1">
@@ -71,7 +71,12 @@
               </mask>
             </defs>
             <g mask="url(#portrait-edge-mask)">
-              <image href="assets/jonathan-profile.png" width="600" height="600" preserveAspectRatio="xMidYMid meet" mask="url(#portrait-splash-mask)"/>
+              <foreignObject class="portrait-splash-layer" width="600" height="600" mask="url(#portrait-splash-mask)">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="profile-reveal">
+                  <img src="assets/jonathan-profile.png" class="profile-bw" alt="" draggable="false"/>
+                  <img src="assets/jonathan-profile.png" class="profile-color" alt="" draggable="false"/>
+                </div>
+              </foreignObject>
             </g>
           </svg>
         </profile-splash>
@@ -80,7 +85,7 @@
       <section class="audience section" aria-labelledby="focus-title">
         <h2 id="focus-title">Innovation Focus</h2>
         <div class="focus-grid">
-          <article class="focus-card lavender">
+          <article class="focus-card lavender" tabindex="0">
             <div class="icon-stack" aria-hidden="true"></div>
             <h3>Innovation Strategy & Learning Ecosystems</h3>
             <p>
@@ -90,7 +95,7 @@
               transformation and measurable student impact.
             </p>
           </article>
-          <article class="focus-card lime">
+          <article class="focus-card lime" tabindex="0">
             <div class="icon-person" aria-hidden="true"></div>
             <h3>Organizational Capacity & Instructional Innovation</h3>
             <p>
@@ -100,7 +105,7 @@
               institutional goals.
             </p>
           </article>
-          <article class="focus-card lavender">
+          <article class="focus-card lavender" tabindex="0">
             <div class="icon-screen" aria-hidden="true"></div>
             <h3>Emerging Technology & Experiential Innovation</h3>
             <p>
@@ -119,18 +124,49 @@
           <h2>My Work</h2>
         </div>
         <div class="project-list">
-          <article class="project-card project-lavender">
-            <p class="project-type">PROGRAM IMPACT | FOREST RIDGE SCHOOL OF THE SACRED HEART</p>
-            <h3><button class="project-toggle" id="project-toggle-1" type="button" aria-expanded="true" aria-controls="project-details-1">Building an Inclusive Grades 5–12 Innovation Ecosystem<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">A cohesive grades 5–12 innovation pathway expanding girls’ access to STEM, emerging technologies, and hands-on learning.</p>
-            <div class="project-details" id="project-details-1" role="region" aria-labelledby="project-toggle-1">
+          <article class="project-card" data-theme="purple">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><rect x="24" y="24" width="52" height="52" rx="12" fill="currentColor"/><path d="M34 14v10m16-10v10m16-10v10M34 76v10m16-10v10m16-10v10M14 34h10M14 50h10M14 66h10m52-32h10M76 50h10M76 66h10" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="m38 58 12-20 13 23M38 58l25 3" fill="none" stroke="var(--card-accent-light)" stroke-width="3"/><g fill="var(--card-accent-light)"><circle cx="38" cy="58" r="5"/><circle cx="50" cy="38" r="5"/><circle cx="63" cy="61" r="5"/></g></svg></span>
+              <span class="project-tile-title">AI + Learning Tools</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">AI &amp; INTERACTIVE LEARNING TOOLS | EDUCATIONAL INNOVATION</p>
+              <h3>Designing AI &amp; Interactive Tools for Learning</h3>
+              <div class="project-details-inner">
+                <p><strong>Challenge:</strong> Make emerging technologies more accessible to students while developing practical digital tools that improve instruction, engagement, and classroom experiences.</p>
+<p><strong>Role:</strong> Application developer, AI innovation strategist, instructional designer, and educational technology specialist.</p>
+<p><strong>Built:</strong> Three browser-based educational applications:</p>
+<ul>
+<li><strong>Sight2Motion:</strong> A computer-vision learning environment using YOLO object detection that allows students to connect real-world visual input with rule-based robot behavior.</li>
+<li><strong>Drone Flight Simulator:</strong> A virtual CoDrone EDU programming environment that allows students to practice commands and visualize a drone's flight trajectory before programming a physical drone.</li>
+<li><strong>Student Participation Tracker:</strong> A classroom tool that helps educators visualize student participation, discussion turns, interaction patterns, and conversation flow during seminars.</li>
+</ul>
+<p><strong>Impact:</strong> Created accessible, interactive tools connecting programming, computer vision, simulation, robotics, and classroom practice with authentic learning experiences.</p>
+<p><strong>Evidence:</strong> Live applications, functional prototypes, classroom implementation, and instructional use cases.</p>
+                <div class="project-actions"><a class="watch-button" href="https://sight2motion.vercel.app/" target="_blank" rel="noopener noreferrer">Sight2Motion <span aria-hidden="true">-></span></a>
+<a class="watch-button" href="https://innolab-drone-flight-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">Drone Simulator <span aria-hidden="true">-></span></a>
+<a class="watch-button" href="https://student-participation-tracker-navy.vercel.app/" target="_blank" rel="noopener noreferrer">Participation Tracker <span aria-hidden="true">-></span></a></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-theme="green">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path d="M50 49 25 25m25 24 25-24M50 49 22 74m28-25 28 25M50 49v32" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><g fill="currentColor"><circle cx="25" cy="25" r="11"/><circle cx="75" cy="25" r="11"/><circle cx="22" cy="74" r="11"/><circle cx="78" cy="74" r="11"/><circle cx="50" cy="81" r="8"/></g><circle cx="50" cy="49" r="15" fill="var(--card-accent-light)"/><circle cx="50" cy="49" r="8" fill="currentColor"/></svg></span>
+              <span class="project-tile-title">Innovation Ecosystem</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">PROGRAM IMPACT | FOREST RIDGE SCHOOL OF THE SACRED HEART</p>
+              <h3>Building an Inclusive Grades 5–12 Innovation Ecosystem</h3>
               <div class="project-details-inner">
                 <p><strong>Challenge:</strong> Expand girls' access to applied STEM and emerging technologies through a cohesive, future-ready learning pathway.</p>
 <p><strong>Role:</strong> Innovation strategist, program architect, curriculum designer, instructor, and faculty partner.</p>
 <p><strong>Built:</strong> A comprehensive grades 5–12 pathway connecting robotics, AI and machine learning, immersive technologies, automation, creative coding, and maker-centered learning through the Innovation Lab.</p>
 <p><strong>Impact:</strong> Established progressive learning experiences designed to build technical fluency, creativity, confidence, and real-world problem-solving skills. Student reflections from 2025–26 highlighted persistence, creative freedom, and meaningful growth.</p>
 <p><strong>Evidence:</strong> Student reflections, curriculum pathways, program materials, student projects, and instructional artifacts.</p>
-                <div class="project-actions"><a class="watch-button" href="https://fr-impact-report.vercel.app/" target="_blank" rel="noreferrer">
+                <div class="project-actions"><a class="watch-button" href="https://fr-impact-report.vercel.app/" target="_blank" rel="noopener noreferrer">
                 Read report <span aria-hidden="true">-></span>
               </a>
 <button class="watch-button" type="button" data-video-open data-video-title="Building an Inclusive Grades 5–12 Innovation Ecosystem" data-video-src="https://drive.google.com/file/d/1jr-PPyf2vAqZlb7dtWCdkf760DbALhm9/preview">
@@ -140,11 +176,15 @@
             </div>
           </article>
 
-          <article class="project-card project-lime">
-            <p class="project-type">Professional Development Webinar | Nord Anglia University</p>
-            <h3><button class="project-toggle" id="project-toggle-2" type="button" aria-expanded="true" aria-controls="project-details-2">Designing Scalable Professional Learning in Gamification<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">A professional-development experience helping educators turn gamification principles into practical, engaging learning strategies.</p>
-            <div class="project-details" id="project-details-2" role="region" aria-labelledby="project-toggle-2">
+          <article class="project-card" data-theme="lime">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path d="M50 67v17m0-7L34 87m16-10 16 10" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect x="14" y="20" width="72" height="48" rx="7" fill="currentColor"/><path d="M25 53h19m-19-9h12" stroke="var(--card-accent-light)" stroke-width="4" stroke-linecap="round"/><path d="m63 29 4 10 10 4-10 4-4 10-4-10-10-4 10-4Z" fill="var(--card-accent-light)"/></svg></span>
+              <span class="project-tile-title">Professional Learning</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">Professional Development Webinar | Nord Anglia University</p>
+              <h3>Designing Scalable Professional Learning in Gamification</h3>
               <div class="project-details-inner">
                 <p><strong>Challenge:</strong> Help educators move beyond surface-level gamification and use game-based principles intentionally to strengthen learning, motivation, feedback, and engagement.</p>
 <p><strong>Role:</strong> Instructional designer, professional-learning facilitator, educator, and Learning Technologies Teaching Fellow.</p>
@@ -158,11 +198,15 @@
             </div>
           </article>
 
-          <article class="project-card project-panel">
-            <p class="project-type">VR & Game Development Showcase | Educational Applications</p>
-            <h3><button class="project-toggle" id="project-toggle-3" type="button" aria-expanded="true" aria-controls="project-details-3">Creating Custom Immersive Learning Experiences<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">Custom VR, AR, and game-based experiences that make academic concepts interactive, experiential, and accessible.</p>
-            <div class="project-details" id="project-details-3" role="region" aria-labelledby="project-toggle-3">
+          <article class="project-card" data-theme="lavender">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path d="M20 41c0-25 60-25 60 0" fill="none" stroke="currentColor" stroke-width="7"/><path d="M22 36h56c8 0 12 6 12 14v16c0 11-10 14-18 9L57 66H43l-15 9c-8 5-18 2-18-9V50c0-8 4-14 12-14Z" fill="currentColor"/><rect x="22" y="45" width="56" height="17" rx="8" fill="var(--card-accent-light)"/><path d="m55 47-7 13" stroke="currentColor" stroke-width="4"/></svg></span>
+              <span class="project-tile-title">Immersive Learning</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">VR & Game Development Showcase | Educational Applications</p>
+              <h3>Creating Custom Immersive Learning Experiences</h3>
               <div class="project-details-inner">
                 <p><strong>Challenge:</strong> Make abstract concepts and academic content more interactive, experiential, and accessible through immersive technology.</p>
 <p><strong>Role:</strong> XR developer, Unity developer, instructional designer, and learning-experience designer.</p>
@@ -176,11 +220,15 @@
             </div>
           </article>
 
-          <article class="project-card project-lavender">
-            <p class="project-type">3D Web Game | Library of Congress Challenge</p>
-            <h3><button class="project-toggle" id="project-toggle-4" type="button" aria-expanded="true" aria-controls="project-details-4">Designing Game-Based Civic Learning<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">A 3D exploration game that brings the Bill of Rights to life through discovery and interactive civic learning.</p>
-            <div class="project-details" id="project-details-4" role="region" aria-labelledby="project-toggle-4">
+          <article class="project-card" data-theme="purple">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><rect x="48" y="12" width="33" height="46" rx="5" fill="currentColor" opacity=".6"/><path d="M57 24h15m-15 8h15" stroke="var(--card-accent-light)" stroke-width="3" stroke-linecap="round"/><path d="M31 42h36c10 0 14 6 17 16l6 17c3 10-6 16-14 8L64 72H36L24 83c-8 8-17 2-14-8l6-17c3-10 5-16 15-16Z" fill="currentColor"/><path d="M29 53v16m-8-8h16" stroke="var(--card-accent-light)" stroke-width="5" stroke-linecap="round"/><g fill="var(--card-accent-light)"><circle cx="66" cy="57" r="4"/><circle cx="76" cy="66" r="4"/></g></svg></span>
+              <span class="project-tile-title">Civic Game Design</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">3D Web Game | Library of Congress Challenge</p>
+              <h3>Designing Game-Based Civic Learning</h3>
               <div class="project-details-inner">
                 <p><strong>Challenge:</strong> Make the Bill of Rights more engaging and approachable by transforming civic content into an interactive learning experience.</p>
 <p><strong>Role:</strong> Game designer, Unity developer, instructional designer, and project creator.</p>
@@ -194,11 +242,15 @@
             </div>
           </article>
 
-          <article class="project-card project-lime">
-            <p class="project-type">Micro-PD Video Series | American Institute of Monterrey</p>
-            <h3><button class="project-toggle" id="project-toggle-5" type="button" aria-expanded="true" aria-controls="project-details-5">Creating Practical Micro-Learning for Teachers<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">Short, focused professional-learning videos that help teachers bring creative, student-centered strategies into the classroom.</p>
-            <div class="project-details" id="project-details-5" role="region" aria-labelledby="project-toggle-5">
+          <article class="project-card" data-theme="lime">
+            <button class="project-tile" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="project-dialog">
+              <span class="project-overlay" aria-hidden="true"></span>
+              <span class="project-circle" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><rect x="13" y="16" width="59" height="48" rx="7" fill="currentColor" opacity=".45"/><rect x="22" y="26" width="59" height="48" rx="7" fill="currentColor" opacity=".65"/><rect x="31" y="36" width="59" height="48" rx="7" fill="currentColor"/><path d="m53 47 19 13-19 13Z" fill="var(--card-accent-light)"/></svg></span>
+              <span class="project-tile-title">Micro-Learning</span>
+            </button>
+            <div class="project-full" hidden>
+              <p class="project-type">Micro-PD Video Series | American Institute of Monterrey</p>
+              <h3>Creating Practical Micro-Learning for Teachers</h3>
               <div class="project-details-inner">
                 <p><strong>Challenge:</strong> Make professional learning more accessible, focused, and immediately applicable for educators.</p>
 <p><strong>Role:</strong> Instructional designer, teacher coach, professional-learning facilitator, and content creator.</p>
@@ -211,30 +263,13 @@
               </div>
             </div>
           </article>
-
-          <article class="project-card project-panel">
-            <p class="project-type">AI &amp; INTERACTIVE LEARNING TOOLS | EDUCATIONAL INNOVATION</p>
-            <h3><button class="project-toggle" id="project-toggle-6" type="button" aria-expanded="true" aria-controls="project-details-6">Developing AI and Interactive Tools for Learning<span class="project-indicator" aria-hidden="true">−</span></button></h3>
-            <p class="project-summary">Building practical AI-powered and interactive applications that help students learn through experimentation while supporting teachers with classroom-ready tools.</p>
-            <div class="project-details" id="project-details-6" role="region" aria-labelledby="project-toggle-6">
-              <div class="project-details-inner">
-                <p><strong>Challenge:</strong> Make emerging technologies more accessible to students while developing practical digital tools that improve instruction, engagement, and classroom experiences.</p>
-<p><strong>Role:</strong> Application developer, AI innovation strategist, instructional designer, and educational technology specialist.</p>
-<p><strong>Built:</strong> Three browser-based educational applications:</p>
-<ul>
-<li><strong>Sight2Motion:</strong> Uses computer vision and YOLO object detection to let students create rules that control educational robots through real-world visual input.</li>
-<li><strong>CoDrone EDU Virtual Flight Lab:</strong> Allows students to practice drone programming, simulate flight commands, and visualize trajectories before working with physical drones.</li>
-<li><strong>Student Participation Tracker:</strong> Helps teachers visualize and document student participation, discussion turns, and interaction patterns during classroom seminars.</li>
-</ul>
-<p><strong>Impact:</strong> Created accessible, interactive tools that connect programming, AI, simulation, and classroom practice with authentic learning experiences.</p>
-<p><strong>Evidence:</strong> Live applications, functional prototypes, classroom integration, and instructional use cases.</p>
-                <div class="project-actions"><a class="watch-button" href="https://sight2motion.vercel.app/" target="_blank" rel="noreferrer">Sight2Motion <span aria-hidden="true">-></span></a>
-<a class="watch-button" href="https://innolab-drone-flight-simulator.vercel.app/" target="_blank" rel="noreferrer">Drone Simulator <span aria-hidden="true">-></span></a>
-<a class="watch-button" href="https://student-participation-tracker-navy.vercel.app/" target="_blank" rel="noreferrer">Participation Tracker <span aria-hidden="true">-></span></a></div>
-              </div>
-            </div>
-          </article>
         </div>
+        <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
+          <div class="project-dialog-scroll">
+            <div class="project-dialog-tools"><button class="project-close" type="button" aria-label="Close project">×</button></div>
+            <div class="project-dialog-content"></div>
+          </div>
+        </dialog>
       </section>
 
       <section id="experience" class="experience section">
@@ -244,7 +279,7 @@
         </div>
 
         <div class="timeline">
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">1</span>
             <div>
               <p class="org">Forest Ridge School of the Sacred Heart | Bellevue, WA | 2025-Present</p>
@@ -254,7 +289,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">2</span>
             <div>
               <p class="org">University Prep | Seattle, WA | 2022-2025</p>
@@ -264,7 +299,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">3</span>
             <div>
               <p class="org">Houston ISD | Houston, TX | 2021-2022</p>
@@ -274,7 +309,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">4</span>
             <div>
               <p class="org">The Village School / Nord Anglia Education | Houston, TX | 2019-2021</p>
@@ -284,7 +319,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">5</span>
             <div>
               <p class="org">American Institute of Monterrey | Monterrey, Mexico | 2016-2019</p>
@@ -294,7 +329,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">6</span>
             <div>
               <p class="org">Instituto Anglo Britanico | Monterrey, Mexico | 2008-2015</p>
@@ -305,7 +340,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">7</span>
             <div>
               <p class="org">Zoe Immersive + ISTE</p>
@@ -315,7 +350,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item" tabindex="0">
             <span class="number">8</span>
             <div>
               <p class="org">Library of Congress Challenge</p>

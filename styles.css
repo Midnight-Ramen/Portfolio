@@ -272,6 +272,46 @@ profile-splash svg {
   overflow: visible;
 }
 
+.profile-reveal {
+  --x: 300px;
+  --y: 300px;
+  --reveal-size: 210px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.profile-reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+.profile-bw { filter: grayscale(100%); }
+.profile-color {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  -webkit-mask-image: radial-gradient(circle var(--reveal-size) at var(--x) var(--y), #000 0%, #000 35%, rgba(0,0,0,.85) 50%, rgba(0,0,0,.4) 68%, transparent 82%);
+  mask-image: radial-gradient(circle var(--reveal-size) at var(--x) var(--y), #000 0%, #000 35%, rgba(0,0,0,.85) 50%, rgba(0,0,0,.4) 68%, transparent 82%);
+}
+.is-color-revealing .profile-color { opacity: 1; }
+.portrait-image:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 1rem; }
+.portrait-image:focus-visible .profile-color {
+  opacity: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .profile-color { opacity: 1; -webkit-mask-image: none; mask-image: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-color { -webkit-mask-image: none; mask-image: none; }
+  .profile-reveal:hover .profile-color { opacity: 1; }
+}
+
 .liquid-blob {
   position: absolute;
   display: block;
@@ -316,14 +356,14 @@ profile-splash .splash {
 profile-splash.is-pending .splash { transform: scale(0); }
 profile-splash.is-pending .portrait-accents { opacity: 0; }
 profile-splash.is-revealing .splash {
-  animation: portrait-reveal 850ms cubic-bezier(.2,.8,.2,1) both;
+  animation: portrait-reveal 2200ms cubic-bezier(.4,0,.2,1) both;
 }
-profile-splash.is-revealing .s2 { animation-delay: 45ms; }
-profile-splash.is-revealing .s3 { animation-delay: 90ms; }
-profile-splash.is-revealing .s4 { animation-delay: 135ms; }
-profile-splash.is-revealing .s5 { animation-delay: 70ms; }
+profile-splash.is-revealing .s2 { animation-delay: 120ms; }
+profile-splash.is-revealing .s3 { animation-delay: 240ms; }
+profile-splash.is-revealing .s4 { animation-delay: 360ms; }
+profile-splash.is-revealing .s5 { animation-delay: 180ms; }
 profile-splash.is-revealing .portrait-accents {
-  animation: portrait-accents 850ms cubic-bezier(.2,.8,.2,1) both;
+  animation: portrait-accents 2200ms cubic-bezier(.4,0,.2,1) both;
 }
 
 @keyframes portrait-reveal {
@@ -372,17 +412,83 @@ profile-splash.is-revealing .portrait-accents {
 }
 
 .focus-card {
+  position: relative;
+  isolation: isolate;
   padding: 2.5rem clamp(1rem, 1.4vw, 1.25rem) 1.25rem;
   border: 2px solid var(--ink);
   border-radius: 1.35rem;
 }
 
+.focus-card,
+.timeline-item {
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: transform 300ms cubic-bezier(.25,.45,.45,.95);
+  will-change: transform;
+}
+
 .focus-card.lavender {
+  --focus-shadow: var(--lavender);
   background: var(--lavender-soft);
 }
 
 .focus-card.lime {
+  --focus-shadow: var(--lime);
   background: var(--lime-soft);
+}
+
+/* Color-matched shadow layer, adapted to the cards' existing solid fills. */
+.focus-card::before,
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 1rem 5% -15px;
+  border-radius: inherit;
+  background: var(--focus-shadow);
+  filter: blur(15px);
+  opacity: .45;
+  pointer-events: none;
+  transition: opacity 350ms ease;
+}
+
+/* Keep the blurred layer behind an opaque card surface. */
+.focus-card::after,
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: calc(1.35rem - 2px);
+  background: inherit;
+  pointer-events: none;
+}
+
+.focus-card:hover,
+.focus-card:focus-within,
+.timeline-item:hover,
+.timeline-item:focus-within {
+  transform: translate3d(0, -4px, 0) scale(1.02);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .focus-card:hover::before,
+  .timeline-item:hover::before { opacity: .65; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-card,
+  .focus-card::before,
+  .timeline-item,
+  .timeline-item::before { transition: none; }
+  .focus-card,
+  .focus-card:hover,
+  .focus-card:focus-within,
+  .timeline-item,
+  .timeline-item:hover,
+  .timeline-item:focus-within {
+    transform: none;
+    will-change: auto;
+  }
 }
 
 .focus-card h3 {
@@ -641,6 +747,8 @@ profile-splash.is-revealing .portrait-accents {
 }
 
 .timeline-item {
+  --focus-shadow: var(--panel);
+  isolation: isolate;
   position: relative;
   display: grid;
   grid-template-columns: 3.6rem minmax(0, 1fr);
@@ -652,10 +760,12 @@ profile-splash.is-revealing .portrait-accents {
 }
 
 .timeline-item:nth-child(even) {
+  --focus-shadow: var(--lime);
   background: var(--lime-soft);
 }
 
 .timeline-item:nth-child(3n) {
+  --focus-shadow: var(--lavender);
   background: var(--lavender-soft);
 }
 
