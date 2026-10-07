@@ -305,7 +305,7 @@ profile-splash svg {
   mask-image: none;
 }
 @media (hover: none), (pointer: coarse) {
-  .profile-color { opacity: 1; -webkit-mask-image: none; mask-image: none; }
+  .profile-reveal:not(.has-mouse-input) .profile-color { opacity: 1; -webkit-mask-image: none; mask-image: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .profile-color { -webkit-mask-image: none; mask-image: none; }
@@ -917,3 +917,7 @@ footer p a {
     flex-direction: column;
   }
 }
+
+/* Keep the contact address within narrow phone viewports. */
+footer p { min-width: 0; }
+footer a[href^='mailto:'] { overflow-wrap: anywhere; }

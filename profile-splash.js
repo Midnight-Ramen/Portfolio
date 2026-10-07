@@ -109,7 +109,12 @@ class ProfileSplash extends HTMLElement {
       }
     };
     const update = (event, entering = false) => {
-      if (!this.pointer.matches || this.motion.matches || event.pointerType === "touch") return;
+      if (event.pointerType === "touch") {
+        surface.classList.remove("has-mouse-input");
+        return;
+      }
+      surface.classList.add("has-mouse-input");
+      if (this.motion.matches) return;
       const rect = surface.getBoundingClientRect();
       // The foreignObject uses SVG coordinates; keep the brush ~150 screen pixels.
       const ratio = surface.clientWidth / rect.width;
