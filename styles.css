@@ -75,6 +75,7 @@ a {
   inset: 0 auto auto 0;
   z-index: 0;
   width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
@@ -470,6 +471,43 @@ profile-splash.is-revealing .portrait-accents {
 
 .project-card:nth-child(3n) {
   background: var(--lime-soft);
+}
+
+.project-card-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  background: var(--lavender-soft);
+}
+
+.featured-summary,
+.featured-evidence {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(.65rem, 1vw, .85rem);
+  min-width: 0;
+}
+
+.featured-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+.featured-actions .watch-button {
+  width: auto;
+  margin-top: 0;
+}
+
+/* Keep the remaining cards' original colors after merging the first two. */
+.project-card-featured ~ .project-card { background: var(--panel); }
+.project-card-featured ~ .project-card:nth-child(even) { background: var(--lavender-soft); }
+.project-card-featured ~ .project-card:nth-child(3n + 2) { background: var(--lime-soft); }
+
+@media (max-width: 720px) {
+  .project-card-featured { grid-template-columns: 1fr; }
 }
 
 .project-type,

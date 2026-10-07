@@ -1,0 +1,98 @@
+/* Project-only disclosure grid; existing portfolio styles remain unchanged. */
+#work .project-list {
+  --project-columns: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr);
+  gap: clamp(.85rem, 1.5vw, 1.25rem);
+  transition: grid-template-columns 400ms cubic-bezier(.22,1,.36,1),
+    grid-template-rows 400ms cubic-bezier(.22,1,.36,1);
+  overflow-anchor: none;
+}
+
+#work .project-list[data-column="0"] { grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); }
+#work .project-list[data-column="1"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr) minmax(0, 1fr); }
+#work .project-list[data-column="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2.2fr); }
+#work .project-list[data-row="0"] { grid-template-rows: minmax(min-content, 2fr) minmax(min-content, 1fr); }
+#work .project-list[data-row="1"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 2fr); }
+
+#work .project-card {
+  min-width: 0;
+  padding: clamp(1rem, 1.5vw, 1.25rem);
+  gap: .7rem;
+  justify-content: flex-start;
+}
+
+#work .project-lavender { background: var(--lavender-soft); }
+#work .project-lime { background: var(--lime-soft); }
+#work .project-panel { background: var(--panel); }
+#work .project-type { font-size: clamp(.72rem, .85vw, .8rem); line-height: 1.35; }
+#work .project-card h3 { font-size: clamp(1.15rem, 1.5vw, 1.4rem); line-height: 1.15; }
+#work .project-card p:not(.project-type),
+#work .project-card li { font-size: 1rem; line-height: 1.45; }
+
+#work .project-toggle {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0 1.5rem 0 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+#work .project-toggle:focus-visible { outline: 2px solid var(--purple); outline-offset: 5px; border-radius: .2rem; }
+#work .project-indicator { position: absolute; top: 0; right: 0; font-weight: 500; color: var(--green); }
+#work .project-summary { max-width: 60ch; }
+#work .project-details { display: grid; grid-template-rows: 1fr; opacity: 1; }
+#work .project-details-inner { min-height: 0; display: flex; flex-direction: column; gap: .8rem; }
+#work .project-details-inner ul { padding-left: 1.2rem; margin-bottom: 0; }
+#work .project-details-inner li + li { margin-top: .6rem; }
+#work .project-actions { display: flex; flex-wrap: wrap; gap: .65rem; padding-bottom: .35rem; }
+#work .project-actions .watch-button { width: auto; margin-top: 0; font-size: .9rem; }
+
+#work .projects-ready .project-details {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 400ms cubic-bezier(.22,1,.36,1),
+    opacity 300ms ease, visibility 0s 400ms;
+}
+#work .projects-ready .project-details-inner { overflow: hidden; }
+#work .projects-ready .is-expanded .project-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  #work .project-list {
+    --project-columns: 2;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr);
+  }
+  #work .project-list[data-column="0"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+  #work .project-list[data-column="1"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+  #work .project-list[data-row="0"] { grid-template-rows: minmax(min-content, 2fr) minmax(min-content, 1fr) minmax(min-content, 1fr); }
+  #work .project-list[data-row="1"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 2fr) minmax(min-content, 1fr); }
+  #work .project-list[data-row="2"] { grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 2fr); }
+}
+
+@media (max-width: 720px) {
+  #work .project-list,
+  #work .project-list[data-column] {
+    --project-columns: 1;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #work .project-list,
+  #work .projects-ready .project-details { transition: none; }
+}
